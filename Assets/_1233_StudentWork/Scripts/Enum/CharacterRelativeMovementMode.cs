@@ -1,6 +1,6 @@
 ﻿
 namespace Assets._1233_StudentWork.Scripts.Enum {
-	enum CharacterRelativeMovementMode {
+	public enum CharacterRelativeMovementMode {
 		World,
 		Character,
 		Camera

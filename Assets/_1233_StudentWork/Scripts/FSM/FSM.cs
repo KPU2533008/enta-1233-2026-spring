@@ -2,28 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 
 namespace Assets._1233_StudentWork.Scripts.FSM {
-    public sealed class FSM<TInput> {
-        private readonly Dictionary<Type, FSM_State<TInput>> _states = new();
+    public sealed class FSM<TCharacter, TInput> {
+        private readonly TCharacter _character;
+        private readonly Dictionary<Type, FSM_State<TCharacter, TInput>> _states = new();
         private readonly Dictionary<Type, bool> _enabled = new();
         private readonly Dictionary<Type, List<TransitionRecord>> _transitionsFrom = new();
 
-        private FSM_State<TInput> _current;
+        private FSM_State<TCharacter, TInput> _current;
 
         private readonly struct TransitionRecord {
-            public readonly FSM_Transition<TInput> Instance;
+            public readonly FSM_Transition<TCharacter, TInput> Instance;
             public readonly Type ToType;
             public readonly int Priority;
 
-            public TransitionRecord(FSM_Transition<TInput> instance, Type toType, int priority) {
+            public TransitionRecord(FSM_Transition<TCharacter, TInput> instance, Type toType, int priority) {
                 Instance = instance;
                 ToType = toType;
                 Priority = priority;
             }
         }
 
-        public FSM(IEnumerable<FSM_State<TInput>> states, IEnumerable<Type> transitionTypes, FSM_State<TInput> initialState, in TInput initialInput) {
+        public FSM(in TCharacter character, IEnumerable<FSM_State<TCharacter, TInput>> states, IEnumerable<Type> transitionTypes, FSM_State<TCharacter, TInput> initialState, in TInput initialInput) {
             if ( states == null )
                 throw new ArgumentNullException(nameof(states));
             if ( transitionTypes == null )
@@ -54,10 +56,10 @@ namespace Assets._1233_StudentWork.Scripts.FSM {
             foreach ( var tt in transitionTypes ) {
                 if ( tt == null )
                     throw new ArgumentException("Transition type list contained null.", nameof(transitionTypes));
-                if ( !typeof(FSM_Transition<TInput>).IsAssignableFrom(tt) )
+                if ( !typeof(FSM_Transition<TCharacter, TInput>).IsAssignableFrom(tt) )
                     throw new ArgumentException($"{tt.Name} does not inherit FSM_Transition<{typeof(TInput).Name}>");
 
-                var tr = (FSM_Transition<TInput>)Activator.CreateInstance(tt)!;
+                var tr = (FSM_Transition<TCharacter, TInput>)Activator.CreateInstance(tt)!;
                 tr.FSM = this;
 
                 var (fromTypes, toType, priority) = ReadTransitionMeta(tt);
@@ -65,16 +67,35 @@ namespace Assets._1233_StudentWork.Scripts.FSM {
                 if ( !_states.ContainsKey(toType) )
                     throw new ArgumentException($"Transition {tt.Name} targets {toType.Name}, but that state was not provided.");
 
-                foreach ( var from in fromTypes ) {
-                    if ( !_states.ContainsKey(from) )
-                        throw new ArgumentException($"Transition {tt.Name} declares From {from.Name}, but that state was not provided.");
+                // For each declared "From", attach this transition to *all* registered states
+                // that are the declared type OR derive from it.
+                var attachedTo = new HashSet<Type>();
 
-                    if ( !_transitionsFrom.TryGetValue(from, out var list) ) {
-                        list = new List<TransitionRecord>();
-                        _transitionsFrom[from] = list;
+                foreach ( var declaredFrom in fromTypes ) {
+                    if ( declaredFrom == null )
+                        throw new ArgumentException($"Transition {tt.Name}.From contains null.");
+
+                    if ( !typeof(FSM_State<TCharacter, TInput>).IsAssignableFrom(declaredFrom) )
+                        throw new ArgumentException(
+                            $"Transition {tt.Name} declares From {declaredFrom.Name}, but it is not a FSM_State<{typeof(TCharacter).Name}, {typeof(TInput).Name}>.");
+
+                    // Find all registered state types compatible with declaredFrom
+                    foreach ( var registeredStateType in _states.Keys ) {
+                        // declaredFrom.IsAssignableFrom(registeredStateType) means:
+                        // registeredStateType == declaredFrom OR registeredStateType derives from declaredFrom
+                        if ( !declaredFrom.IsAssignableFrom(registeredStateType) )
+                            continue;
+
+                        if ( !attachedTo.Add(registeredStateType) )
+                            continue; // avoid duplicates if multiple declaredFrom types overlap
+
+                        if ( !_transitionsFrom.TryGetValue(registeredStateType, out var list) ) {
+                            list = new List<TransitionRecord>();
+                            _transitionsFrom[registeredStateType] = list;
+                        }
+
+                        list.Add(new TransitionRecord(tr, toType, priority));
                     }
-
-                    list.Add(new TransitionRecord(tr, toType, priority));
                 }
             }
 
@@ -87,17 +108,18 @@ namespace Assets._1233_StudentWork.Scripts.FSM {
                 s.Init();
 
             // Enter initial state
+            _character = character;
             _current = initialState;
             _current.ResetElapsedTime();
-            _current.OnEnter(0, in initialInput);
+            _current.OnEnter(0, _character, in initialInput);
         }
 
         // ---------- API ----------
 
-        public TState? GetStateOfClass<TState>() where TState : FSM_State<TInput>
+        public TState? GetStateOfClass<TState>() where TState : FSM_State<TCharacter, TInput>
             => _states.TryGetValue(typeof(TState), out var s) ? (TState)s : null;
 
-        public bool SetStateEnabled<TState>(bool enabled) where TState : FSM_State<TInput> {
+        public bool SetStateEnabled<TState>(bool enabled) where TState : FSM_State<TCharacter, TInput> {
             var t = typeof(TState);
             if ( !_states.ContainsKey(t) )
                 return false;
@@ -105,7 +127,7 @@ namespace Assets._1233_StudentWork.Scripts.FSM {
             return true;
         }
 
-        public FSM_State<TInput> GetState() => _current;
+        public FSM_State<TCharacter, TInput> GetState() => _current;
 
         /// <summary>
         /// Instantly forces the FSM into the given state class, if present.
@@ -113,7 +135,7 @@ namespace Assets._1233_StudentWork.Scripts.FSM {
         /// Returns true if successful.
         /// </summary>
         public bool SetState<TState>(float deltaTime, in TInput input, bool respectEnabled)
-            where TState : FSM_State<TInput>
+            where TState : FSM_State<TCharacter, TInput>
             => SetState(typeof(TState), deltaTime, in input, respectEnabled);
 
         public void Step(float deltaTime, in TInput input) {
@@ -132,7 +154,7 @@ namespace Assets._1233_StudentWork.Scripts.FSM {
                     if ( _enabled.TryGetValue(rec.ToType, out var isEnabled) && !isEnabled )
                         continue;
 
-                    if ( rec.Instance.Test(deltaTime, in input) ) {
+                    if ( rec.Instance.Test(deltaTime, in _character, in input) ) {
                         // transitions always respect enabled status
                         SetState(rec.ToType, deltaTime, in input, respectEnabled: true);
                         break; // one transition per step
@@ -144,12 +166,12 @@ namespace Assets._1233_StudentWork.Scripts.FSM {
             _current.AddElapsedTime(deltaTime);
 
             // State logic
-            _current.Step(deltaTime, in input);
+            _current.Step(deltaTime, in _character, in input);
         }
 
         // ---------- Optional helpers ----------
 
-        public FSM_State<TInput>? GetStateOfClass(Type exactStateType)
+        public FSM_State<TCharacter, TInput>? GetStateOfClass(Type exactStateType)
             => exactStateType != null && _states.TryGetValue(exactStateType, out var s) ? s : null;
 
         // ---------- Internals ----------
@@ -166,11 +188,11 @@ namespace Assets._1233_StudentWork.Scripts.FSM {
                 !isEnabled )
                 return false;
 
-            _current.OnLeave(deltaTime, in input);
+            _current.OnLeave(deltaTime, in _character, in input);
 
             _current = next;
             _current.ResetElapsedTime();
-            _current.OnEnter(deltaTime, in input);
+            _current.OnEnter(deltaTime, in _character, in input);
 
             return true;
         }

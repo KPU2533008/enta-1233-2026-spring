@@ -20,6 +20,7 @@ public class UIMgr : Singleton<UIMgr>
     [SerializeField] private MenuBase _settingsMenuPrefab;
     [SerializeField] private MenuBase _inGameUIPrefab;
     [SerializeField] private MenuBase _gameOverMenuPrefab;
+    [SerializeField] private MenuBase _levelCompletePrefab;
 
     private readonly Dictionary<GameMenus, MenuBase> _menuInstances = new();
     private readonly Stack<MenuBase> _activeMenus = new();
@@ -50,8 +51,10 @@ public class UIMgr : Singleton<UIMgr>
         var menu = PushMenu(menuToOpen);
         if (!menu)
         {
+            Debug.LogWarning($"MENU {menuToOpen.ToString()} DOES NOT EXIST");
             return null;
         }
+        Debug.LogWarning("AHWAHHAHAWHWA");
         if (fadeIn)
         {
             menu.PerformFullFadeIn(_fadeInDuration, onMenuOpenComplete);
@@ -227,6 +230,9 @@ public class UIMgr : Singleton<UIMgr>
                 break;
             case GameMenus.GameOverMenu:
                 menu = _gameOverMenuPrefab;
+                break;
+            case GameMenus.LevelCompleteMenu:
+                menu = _levelCompletePrefab;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(menuType), menuType, null);
