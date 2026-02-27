@@ -44,11 +44,27 @@ public class ProjectileWeapon : MonoBehaviour, IWeapon {
 
 		float time =
 			Mathf.Sqrt(-2 * height / gravity) +
-			Mathf.Sqrt(2 * ( displacementY - height ) / gravity);
+			Mathf.Sqrt(Mathf.Abs(2 * ( displacementY - height ) / gravity));
 
 		Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * height);
 		Vector3 velocityXZ = displacementXZ / time;
 
 		return velocityXZ + velocityY * -Mathf.Sign(gravity);
 	}
+
+	//private Vector3 CalculateArcVelocity(Vector3 start, Vector3 end, float height) {
+	//	float apexY = Mathf.Max(start.y, end.y) + height;
+	//	float dyUp = apexY - start.y;
+	//	float dyDown = apexY - end.y;
+	//	float vy0 = Mathf.Sqrt(-2f * Physics.gravity.y * dyUp);
+	//	float tUp = -vy0 / Physics.gravity.y;
+	//	float tDown = Mathf.Sqrt(2f * ( end.y - apexY ) / Physics.gravity.y);
+	//	float tTotal = tUp + tDown;
+
+	//	Vector3 to = end - start;
+	//	float vx = to.x / tTotal;
+	//	float vz = to.z / tTotal;
+
+	//	return new Vector3(vx, vy0, vz);
+	//}
 }

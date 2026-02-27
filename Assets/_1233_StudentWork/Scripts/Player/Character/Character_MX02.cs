@@ -53,7 +53,8 @@ public class Character_MX02 : Character {
 		Controller.Move(velocity * dt);
 
 		FSM_State<Character_MX02, PlayerCharacterInput> currentState = StateMachine.GetState();
-		_animator.SetInteger("PoseId", STATE_POSE_ID_MAP[currentState.GetType()]);
+		if ( STATE_POSE_ID_MAP.TryGetValue(currentState.GetType(), out int poseId))
+			_animator.SetInteger("PoseId", poseId);
 	}
 
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerTargetBehavior : MonoBehaviour, ITargetProvider {
+public class PlayerTargetProvider : MonoBehaviour, ITargetProvider {
 	[SerializeField] private Vector3 _offset = new(0, 1f, 0);
 
 	public bool HasTarget =>
@@ -10,13 +10,13 @@ public class PlayerTargetBehavior : MonoBehaviour, ITargetProvider {
 
 	public Transform GetTarget() {
 		if ( HasTarget )
-			return PlayerService.Instance.GetPlayers()[0].Character.transform;
+			return PlayerService.Instance.GetPlayers()[0].Character.Collider.transform;
 		return null;
 	}
 
 	public Vector3 GetTargetPosition() {
 		if ( HasTarget )
-			return PlayerService.Instance.GetPlayers()[0].Character.transform.position + _offset;
+			return PlayerService.Instance.GetPlayers()[0].Character.Collider.transform.position + _offset;
 		return transform.position;
 	}
 }
