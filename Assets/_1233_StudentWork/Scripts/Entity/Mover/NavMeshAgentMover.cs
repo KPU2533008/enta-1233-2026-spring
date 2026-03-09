@@ -2,19 +2,26 @@
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public sealed class NavMeshAgentMover : MonoBehaviour {
+public sealed class NavMeshAgentMover : MonoBehaviour, IMover {
 	[SerializeField] private NavMeshAgent _agent;
-	[SerializeField] private Vector3 _debugDestination;
+
+	private const float EPSILON = 0.01f;
 
 	public Vector3 Velocity => _agent.velocity;
 	public bool HasPath => _agent.hasPath;
+	public float RemainingDistance => _agent.remainingDistance;
+	public bool IsAtDestination => RemainingDistance <= EPSILON;
 
-	public void SetDestination(Vector3 worldPos) {
-		_agent?.SetDestination(worldPos);
+	public void Resume() {
+		throw new System.NotImplementedException();
 	}
 
-	public void Start() {
-		SetDestination(_debugDestination);
+	public void SetDestination(Vector3 destination) {
+		_agent?.SetDestination(destination);
+	}
+
+	public void SetEnabled(bool enabled) {
+		throw new System.NotImplementedException();
 	}
 
 	public void Stop() {

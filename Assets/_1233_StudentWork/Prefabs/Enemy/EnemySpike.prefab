@@ -81,7 +81,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 743554202481368845, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
       propertyPath: m_Name
-      value: EnemySpike Variant
+      value: EnemySpike
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343963021284841642, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
+      propertyPath: m_Name
+      value: SpikeCollider
       objectReference: {fileID: 0}
     - target: {fileID: 5765801762328809061, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
       propertyPath: _animator
@@ -89,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 1445832192992803744}
     - target: {fileID: 6698033998410027074, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6698033998410027074, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -97,7 +101,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6698033998410027074, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6698033998410027074, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -146,6 +150,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 743554202481368845, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8669794899089345467}
+    - targetCorrespondingSourceObject: {fileID: 743554202481368845, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6687731368182445820}
+    - targetCorrespondingSourceObject: {fileID: 743554202481368845, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4287759124692080560}
     - targetCorrespondingSourceObject: {fileID: 2343963021284841642, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1672888381385954822}
@@ -197,6 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1df8d6a3f2179f14eae5a22e48ad0f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _waypoints: []
+  _repeatCount: -1
+  _reverses: 0
 --- !u!54 &6571653874569351042
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -222,7 +235,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!114 &1006237306220085261
 MonoBehaviour:
@@ -237,8 +250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: {fileID: 5231641997001732748}
-  _patrolMotor: {fileID: 1135491961691244488}
-  _contactDamage: {fileID: 8261084941663180202}
+  _patrolMotor: {fileID: 0}
+  _contactDamage: {fileID: 6687731368182445820}
   _animatorDriver: {fileID: 1145204299496532552}
 --- !u!195 &8669794899089345467
 NavMeshAgent:
@@ -262,6 +275,33 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6687731368182445820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6174727018663721760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e3d6df3d1e7cb94da8d990b54962060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 10
+  _cooldown: 1
+--- !u!114 &4287759124692080560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6174727018663721760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc5cb9f521fc9b348a665124ccfd5efa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agent: {fileID: 8669794899089345467}
 --- !u!1 &9180525079514463367 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2343963021284841642, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
