@@ -5,7 +5,7 @@ public abstract class Motor : MonoBehaviour {
 
 	protected IMover _mover;
 
-	private void Start() {
+	protected virtual void Start() {
 		_mover = GetComponent<IMover>();
 	}
 

@@ -8,13 +8,12 @@ public class Player : MonoBehaviour {
 
     [SerializeField] private Character _defaultCharacterPrefab;
     [SerializeField] public SpawnLocation? SpawnLocation;
-    [SerializeField] private CinemachineCamera _camera;
 
-    private PlayerCharacterInput _inputs = new(Vector3.zero, false, false);
+    private PlayerCharacterInput _inputs = new(Vector3.zero, false, false, false);
 
     public Character? Character { get; private set; } = null;
     public CharacterRelativeMovementMode RelativeMovementMode = CharacterRelativeMovementMode.Camera;
-    public PlayerCharacterInput CharacterInputs => new(GetRelativeMoveDirection(_inputs.MoveDirection), _inputs.Jump, _inputs.Sprint);
+    public PlayerCharacterInput CharacterInputs => new(GetRelativeMoveDirection(_inputs.MoveDirection), _inputs.Jump, _inputs.Sprint, _inputs.Attack);
 
     private Vector3 GetSpawnPosition() {
         return SpawnLocation != null ? SpawnLocation.transform.position : Vector3.zero;
@@ -24,7 +23,6 @@ public class Player : MonoBehaviour {
         DespawnCharacter();
         Character character = Instantiate(characterPrefab, position, rotation);
         Character = character;
-        _camera.Follow = Character.Collider.transform;
         return character;
     }
 
@@ -49,12 +47,17 @@ public class Player : MonoBehaviour {
 
     void OnMove(InputValue value) {
         Vector2 rawMoveVector = value.Get<Vector2>();
-        _inputs = new(new Vector3(rawMoveVector.x, 0, rawMoveVector.y), _inputs.Jump, _inputs.Sprint);
+        _inputs = new(new Vector3(rawMoveVector.x, 0, rawMoveVector.y), _inputs.Jump, _inputs.Sprint, _inputs.Attack);
     }
 
     void OnJump(InputValue value) {
         bool jump = value.isPressed;
-        _inputs = new(_inputs.MoveDirection, jump, _inputs.Sprint);
+        _inputs = new(_inputs.MoveDirection, jump, _inputs.Sprint, _inputs.Attack);
+    }
+
+    void OnAttack(InputValue value) {
+        bool attack = value.isPressed;
+        _inputs = new(_inputs.MoveDirection, _inputs.Jump, _inputs.Sprint, attack);
     }
 
     void OnMovementMode() {

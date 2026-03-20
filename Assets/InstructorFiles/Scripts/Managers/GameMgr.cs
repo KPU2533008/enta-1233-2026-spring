@@ -78,6 +78,11 @@ public class GameMgr : Singleton<GameMgr>
         SceneMgr.Instance.LoadScene(GameScenes.GameOver, GameMenus.LevelCompleteMenu);
     }
 
+    public void WinGame() {
+        IsGameRunning = false;
+        SceneMgr.Instance.LoadScene(GameScenes.GameOver, GameMenus.GameWinMenu);
+    }
+
     /// <summary>
     /// Toggle the game state
     /// </summary>

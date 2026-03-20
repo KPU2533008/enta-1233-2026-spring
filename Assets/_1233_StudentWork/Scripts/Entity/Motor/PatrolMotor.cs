@@ -35,7 +35,8 @@ public class PatrolMotor : Motor {
 		_mover.SetDestination(_waypoints[_currentWaypoint]);
 	}
 
-	private void Start() {
+	protected override void Start() {
+		base.Start();
 		_mover.SetDestination(_waypoints[_currentWaypoint]);
 	}
 

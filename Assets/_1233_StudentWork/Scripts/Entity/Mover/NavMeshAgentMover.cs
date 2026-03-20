@@ -20,9 +20,7 @@ public sealed class NavMeshAgentMover : MonoBehaviour, IMover {
 		_agent?.SetDestination(destination);
 	}
 
-	public void SetEnabled(bool enabled) {
-		throw new System.NotImplementedException();
-	}
+	public void SetEnabled(bool enabled) {}
 
 	public void Stop() {
 		_agent?.ResetPath();

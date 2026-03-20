@@ -118,6 +118,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyProjectile_Seed Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8621786137248116142, guid: 50f607f0d941622419ec305f6e07bd00, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 4262
+      objectReference: {fileID: 0}
+    - target: {fileID: 8621786137248116142, guid: 50f607f0d941622419ec305f6e07bd00, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 3152
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

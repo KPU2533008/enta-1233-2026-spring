@@ -38,7 +38,7 @@ public class Health : MonoBehaviour {
 		if ( IsDead || _isInvulnerable )
 			return;
 
-		Current = Math.Max(Current + info.Amount, 0);
+		Current = Math.Max(Current - info.Amount, 0);
 		OnDamaged?.Invoke(info);
 
 		if ( Current <= 0 )

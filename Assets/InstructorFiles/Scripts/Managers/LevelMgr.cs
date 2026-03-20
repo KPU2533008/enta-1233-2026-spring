@@ -30,7 +30,7 @@ public class LevelMgr : Singleton<LevelMgr> {
 	}
 
 	public void NextLevel() {
-		_currentLevelIndex = _currentLevelIndex + 1 % _levelSceneNames.Length;
+		_currentLevelIndex = (_currentLevelIndex + 1) % _levelSceneNames.Length;
 	}
 
 }
