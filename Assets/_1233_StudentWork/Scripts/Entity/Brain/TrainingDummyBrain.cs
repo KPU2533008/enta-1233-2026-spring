@@ -16,15 +16,15 @@ public class TrainingDummyBrain : MonoBehaviour {
 
 	private void OnEnable() {
 		if ( _health != null ) {
-			_health.OnDamaged += HandleDamaged;
-			_health.OnDied += HandleDied;
+			_health.Damaged += HandleDamaged;
+			_health.Died += HandleDied;
 		}
 	}
 
 	private void OnDisable() {
 		if ( _health != null ) {
-			_health.OnDamaged -= HandleDamaged;
-			_health.OnDied -= HandleDied;
+			_health.Damaged -= HandleDamaged;
+			_health.Died -= HandleDied;
 		}
 	}
 

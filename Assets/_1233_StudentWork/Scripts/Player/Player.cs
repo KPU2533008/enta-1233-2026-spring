@@ -1,5 +1,5 @@
 using Assets._1233_StudentWork.Scripts.Enum;
-using Unity.Cinemachine;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +13,11 @@ public class Player : MonoBehaviour {
 
     public Character? Character { get; private set; } = null;
     public CharacterRelativeMovementMode RelativeMovementMode = CharacterRelativeMovementMode.Camera;
+
     public PlayerCharacterInput CharacterInputs => new(GetRelativeMoveDirection(_inputs.MoveDirection), _inputs.Jump, _inputs.Sprint, _inputs.Attack);
+
+    public event Action<Character> CharacterAdded;
+    public event Action<Character> CharacterRemoving;
 
     private Vector3 GetSpawnPosition() {
         return SpawnLocation != null ? SpawnLocation.transform.position : Vector3.zero;
@@ -23,6 +27,7 @@ public class Player : MonoBehaviour {
         DespawnCharacter();
         Character character = Instantiate(characterPrefab, position, rotation);
         Character = character;
+        CharacterAdded?.Invoke(character);
         return character;
     }
 
@@ -40,6 +45,7 @@ public class Player : MonoBehaviour {
 
     public void DespawnCharacter() {
         if ( Character != null ) {
+            CharacterRemoving?.Invoke(Character);
             Destroy(Character);
             Character = null;
         }

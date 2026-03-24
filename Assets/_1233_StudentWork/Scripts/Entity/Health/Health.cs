@@ -17,21 +17,24 @@ public class Health : MonoBehaviour {
 
 	public int Current { get; private set; }
 	public int Max => _maxHealth;
+	public float Alpha => _maxHealth <= 0 ? 0f : (float)Current / _maxHealth;
 	public bool IsDead { get; private set; }
 
 	void Awake() {
 		ResetHealth();
 	}
 
-	public event Action<HealthModifyInfo> OnDamaged;
-	public event Action OnDied;
-	public event Action OnHealed;
-	public event Action OnReset;
+	public event Action<HealthModifyInfo> Damaged;
+	public event Action Died;
+	public event Action Healed;
+	public event Action Reset;
+	public event Action<Health> Changed;
 
 	public void ResetHealth() {
 		Current = _maxHealth;
 		IsDead = false;
-		OnReset?.Invoke();
+		Reset?.Invoke();
+		Changed?.Invoke(this);
 	}
 
 	public void TakeDamage(HealthModifyInfo info) {
@@ -39,7 +42,8 @@ public class Health : MonoBehaviour {
 			return;
 
 		Current = Math.Max(Current - info.Amount, 0);
-		OnDamaged?.Invoke(info);
+		Damaged?.Invoke(info);
+		Changed?.Invoke(this);
 
 		if ( Current <= 0 )
 			Die();
@@ -50,12 +54,13 @@ public class Health : MonoBehaviour {
 			return;
 
 		Current = Math.Min(Current + amount, _maxHealth);
-		OnHealed?.Invoke();
+		Healed?.Invoke();
+		Changed?.Invoke(this);
 	}
 
 	private void Die() {
 		IsDead = true;
-		OnDied?.Invoke();
+		Died?.Invoke();
 	}
 
 	public void SetInvulnerable(bool invulnerable) {

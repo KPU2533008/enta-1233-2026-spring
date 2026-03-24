@@ -17,14 +17,14 @@ public class SpikeBrain : EnemyBrainBase {
     protected override void OnEnable() {
         base.OnEnable();
         if ( _health != null ) {
-            _health.OnDied += HandleDied;
+            _health.Died += HandleDied;
         }
     }
 
     protected override void OnDisable() {
         base.OnDisable();
         if ( _health != null ) {
-            _health.OnDied -= HandleDied;
+            _health.Died -= HandleDied;
         }
     }
 

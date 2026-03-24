@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae71404af217eab4ebacdcd1ad301bc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 200
+  _maxHealth: 12
   _isInvulnerable: 0
 --- !u!1 &2253882385778792403
 GameObject:
@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e3d6df3d1e7cb94da8d990b54962060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 20
+  _damage: 4
   _cooldown: 0.4
 --- !u!54 &7557205828371542576
 Rigidbody:

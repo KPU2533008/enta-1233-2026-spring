@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1691714861905352353, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
+      propertyPath: _maxHealth
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2343963021284841642, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -152,10 +156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stateMachine: {fileID: 6032790844824397499}
-  _detection: {fileID: 6696261867431822497}
   _animatorDriver: {fileID: 8867412238797472858}
-  _rotator: {fileID: 3105967719535255998}
   _health: {fileID: 4355389723633097886}
+  _detection: {fileID: 6696261867431822497}
+  _rotator: {fileID: 3105967719535255998}
   _attackRange: 2
   _attackCooldown: 2
   _attackDamage: 15

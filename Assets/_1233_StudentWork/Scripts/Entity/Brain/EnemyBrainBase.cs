@@ -27,15 +27,15 @@ public class EnemyBrainBase : MonoBehaviour {
 
     protected virtual void OnEnable() {
         if ( _health != null ) {
-            _health.OnDamaged += HandleDamaged;
-            _health.OnDied += HandleDied;
+            _health.Damaged += HandleDamaged;
+            _health.Died += HandleDied;
         }
     }
 
     protected virtual void OnDisable() {
         if ( _health != null ) {
-            _health.OnDamaged -= HandleDamaged;
-            _health.OnDied -= HandleDied;
+            _health.Damaged -= HandleDamaged;
+            _health.Died -= HandleDied;
         }
     }
 

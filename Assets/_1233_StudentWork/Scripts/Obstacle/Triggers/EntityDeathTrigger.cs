@@ -14,7 +14,7 @@ public class EntityDeathTrigger : TriggerBase {
 
 	private void Awake() {
 		for ( int i = 0; i < _healths.Count; i++ ) {
-			_healths[i].OnDied += OnDied;
+			_healths[i].Died += OnDied;
 		}
 	}
 

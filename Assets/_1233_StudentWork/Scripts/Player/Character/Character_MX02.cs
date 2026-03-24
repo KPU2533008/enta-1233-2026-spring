@@ -58,11 +58,11 @@ public class Character_MX02 : Character {
 
 		StateMachine = new(this, states, transitions, states[0], player.CharacterInputs);
 
-		_health.OnDamaged += (HealthModifyInfo _) => {
+		_health.Damaged += (HealthModifyInfo _) => {
 			_animator.SetTrigger("Hit");
 		};
 
-		_health.OnDied += () => {
+		_health.Died += () => {
 			Player player = PlayerService.Instance.GetPlayerFromCharacter(this);
 			StateMachine.SetState<Dead>(0f, player.CharacterInputs, false);
 			_animator.SetTrigger("Died");

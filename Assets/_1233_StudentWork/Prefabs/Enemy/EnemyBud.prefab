@@ -225,6 +225,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 1691714861905352353, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
+      propertyPath: _maxHealth
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 2343963021284841642, guid: 68ffc85717b089d41a424e07746ab24d, type: 3}
       propertyPath: m_Layer
       value: 12
@@ -431,11 +435,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab5d5eab56f0a941aaf4992148e2b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _stateMachine: {fileID: 0}
+  _animatorDriver: {fileID: 653186838901521523}
   _health: {fileID: 5651602378888012983}
   _weapon: {fileID: 5424250468108000370}
   _detection: {fileID: 489497579789499483}
   _rotator: {fileID: 7784375040760633189}
-  _animatorDriver: {fileID: 653186838901521523}
   _mode: 2
   _fixedAxis: {x: 0, y: 0, z: 1}
 --- !u!1 &8760563598118677180 stripped
