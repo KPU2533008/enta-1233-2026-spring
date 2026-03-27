@@ -32,7 +32,7 @@ public class Heart : MonoBehaviour {
 	}
 
 	private void OnHealthChanged(Health health) {
-		_animateDelay = 1f;
+		_animateDelay = 1.2f;
 		if ( health.Current < _lastHp ) {
 			_fill = health.Current;
 		} else {
@@ -56,12 +56,12 @@ public class Heart : MonoBehaviour {
 		}
 
 		if ( Mathf.Abs(_health.Current - _fill) > dt )
-			_fill += Mathf.Sign(_health.Current - _fill) * dt * 12;
+			_fill += Mathf.Sign(_health.Current - _fill) * dt * 16;
 		else
 			_fill = _health.Current;
 
 		if ( Mathf.Abs(_health.Current - _trail) > dt )
-			_trail += Mathf.Sign(_health.Current - _trail) * dt * 12;
+			_trail += Mathf.Sign(_health.Current - _trail) * dt * 16;
 		else
 			_trail = _health.Current;
 
