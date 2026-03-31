@@ -341,7 +341,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8acd05000b071544b4dad1dbf1d2284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trigger: {fileID: 6891121599004522868}
 --- !u!65 &117515027
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2022,6 +2021,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _reversible: 0
+  OnTriggerStateChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1856589126}
+        m_TargetAssemblyTypeName: LockedDoor, Assembly-CSharp
+        m_MethodName: Open
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _healths:
   - {fileID: 54789820}
   - {fileID: 1410878202}
@@ -2126,7 +2140,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8acd05000b071544b4dad1dbf1d2284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _trigger: {fileID: 1856589121}
 --- !u!1001 &6891121599004522867
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2175,6 +2188,62 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 117515025}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 54789819}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Open
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: LockedDoor, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
+      propertyPath: OnTriggerStateChanged.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2419465247424785693, guid: 01f229533102309469d584974902af87, type: 3}
       propertyPath: m_Name
       value: PressurePlate
@@ -2182,41 +2251,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2419465247424785693, guid: 01f229533102309469d584974902af87, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6891121599004522870}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01f229533102309469d584974902af87, type: 3}
---- !u!114 &6891121599004522868 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1712696656921235741, guid: 01f229533102309469d584974902af87, type: 3}
-  m_PrefabInstance: {fileID: 6891121599004522867}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eb687e28e4950f47b277ae7253b6f12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &6891121599004522869 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2419465247424785693, guid: 01f229533102309469d584974902af87, type: 3}
-  m_PrefabInstance: {fileID: 6891121599004522867}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6891121599004522870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6891121599004522869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd98b9141d30fbc4794ac5f34bdc2b6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _object: {fileID: 54789819}
-  _trigger: {fileID: 6891121599004522868}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
