@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
 public class LevelMgr : Singleton<LevelMgr> {
 	[SerializeField] private string[] _levelSceneNames;
 
+	public string[] LevelSceneNames => _levelSceneNames;
+
 	private int _currentLevelIndex = 0;
 	public bool IsLoaded { get; private set; }
 
@@ -22,6 +24,10 @@ public class LevelMgr : Singleton<LevelMgr> {
 
 		Debug.Log("LevelMgr: Level loaded");
 		IsLoaded = true;
+	}
+
+	public void SetCurrentLevel(int currentLevelIndex) {
+		_currentLevelIndex = currentLevelIndex;
 	}
 
 	public void LoadCurrentLevel() {

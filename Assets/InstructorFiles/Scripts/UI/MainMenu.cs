@@ -25,9 +25,12 @@ public class MainMenu : MenuBase
         SceneMgr.Instance.LoadScene(GameScenes.Gameplay, GameMenus.InGameUI);
     }
 
-    public void ButtonSettings()
-    {
+    public void ButtonSettings() {
         UIMgr.Instance.ShowMenu(GameMenus.SettingsMenu);
+    }
+
+    public void ButtonLevelSelect() {
+        UIMgr.Instance.ShowMenu(GameMenus.LevelSelectMenu);
     }
 
     public void ButtonQuit()
