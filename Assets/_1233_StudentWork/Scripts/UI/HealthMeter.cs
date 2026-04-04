@@ -22,18 +22,18 @@ public class HealthMeter : MonoBehaviour {
 		for ( int i = 0; i < numHearts; i++ ) {
 			Heart heart = Instantiate(_heartPrefab);
 			heart.name = $"Heart{i}";
-			heart.transform.parent = gameObject.transform;
+			heart.transform.SetParent(gameObject.transform, false);
 			heart.SetStartHpIndex(i * 4);
 			heart.BindToHealth(health);
 			_hearts.Add(heart);
 		}
 
-		if ( layout != null ) {
-			layout.childControlHeight = false;
-			layout.childControlHeight = true;
-			layout.childScaleWidth = false;
-			layout.childScaleWidth = true;
-		}
+		//if ( layout != null ) {
+		//	layout.childControlHeight = false;
+		//	layout.childControlHeight = true;
+		//	layout.childScaleWidth = false;
+		//	layout.childScaleWidth = true;
+		//}
 	}
 
 	public void DestroyHearts() {
