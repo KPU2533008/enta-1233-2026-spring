@@ -6,6 +6,7 @@ public class EnemyBrainBase : MonoBehaviour {
 
 	[SerializeField] protected EnemyAnimatorDriver _animatorDriver;
 	[SerializeField] protected Health _health;
+    [SerializeField] protected Collider _collider;
 
     public IMover Mover { get; private set; }
     public ITargetProvider TargetProvider { get; private set; }
@@ -43,9 +44,12 @@ public class EnemyBrainBase : MonoBehaviour {
         _animatorDriver.TriggerHit();
     }
 
-    private void HandleDied() {
+    protected virtual void HandleDied() {
         if (_stateMachine != null)
             _stateMachine.ChangeState(new EnemyDeadState(this, _stateMachine));
+
+        if (_collider != null)
+          _collider.enabled = false;
 
         _animatorDriver.SetSpeed(0);
         _animatorDriver.TriggerDie();

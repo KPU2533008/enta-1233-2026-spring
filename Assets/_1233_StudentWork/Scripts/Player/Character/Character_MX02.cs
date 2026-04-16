@@ -5,11 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Character_MX02 : Character {
 
 	[SerializeField] private Animator _animator;
 	[SerializeField] private Health _health;
+
+	[SerializeField] private UnityEvent _onAttack;
+	[SerializeField] private UnityEvent _onHurt;
 
 	private static Dictionary<Type, int> STATE_POSE_ID_MAP = new() {
 		{ typeof(Idling), 0 },
@@ -52,6 +56,7 @@ public class Character_MX02 : Character {
 			typeof(Fall),
 			typeof(Jump),
 			typeof(Land),
+			typeof(LandFromJump),
 			typeof(LocomotionStart),
 			typeof(LocomotionStop),
 		};
@@ -59,6 +64,7 @@ public class Character_MX02 : Character {
 		StateMachine = new(this, states, transitions, states[0], player.CharacterInputs);
 
 		_health.Damaged += (HealthModifyInfo _) => {
+			_onHurt?.Invoke();
 			_animator.SetTrigger("Hit");
 		};
 
@@ -85,6 +91,7 @@ public class Character_MX02 : Character {
 			_animator.SetInteger("PoseId", poseId);
 
 		if ( _canAttack && input.Attack && !_hasAttacked && !DISALLOWED_ATTACK_STATES.Contains(StateMachine.GetState().GetType()) ) {
+			_onAttack?.Invoke();
 			_animator.SetTrigger("Attack");
 		}
 		_hasAttacked = input.Attack;

@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class ContactDamage : MonoBehaviour {
 	[SerializeField] private int _damage = 10;
 	[SerializeField] private float _cooldown = 1f;
+	[SerializeField] private UnityEvent _onDamaged;
 
 	private float _nextDamageTime;
 
@@ -26,6 +28,9 @@ public class ContactDamage : MonoBehaviour {
 		if ( Time.time < _nextDamageTime )
 			return;
 
+		if ( !enabled )
+			return;
+
 		IDamageReceiver damageReceiver = target.GetComponent<IDamageReceiver>();
 		if ( damageReceiver != null ) {
 			HealthModifyInfo info = new HealthModifyInfo {
@@ -35,6 +40,7 @@ public class ContactDamage : MonoBehaviour {
 				HitNormal = Vector3.up,
 			};
 			damageReceiver.ReceiveDamage(info);
+			_onDamaged?.Invoke();
 			_nextDamageTime = Time.time + _cooldown;
 		}
 	}

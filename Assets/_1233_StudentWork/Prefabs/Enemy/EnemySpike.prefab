@@ -390,6 +390,7 @@ MonoBehaviour:
   _stateMachine: {fileID: 0}
   _animatorDriver: {fileID: 1145204299496532552}
   _health: {fileID: 5231641997001732748}
+  _collider: {fileID: 1672888381385954822}
   _patrolMotor: {fileID: 1135491961691244488}
   _contactDamage: {fileID: 8261084941663180202}
 --- !u!195 &8669794899089345467
@@ -467,6 +468,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 2
   _cooldown: 1
+  _onDamaged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &3345697840997989442
 Rigidbody:
   m_ObjectHideFlags: 0

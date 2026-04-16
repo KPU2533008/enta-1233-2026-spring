@@ -28,7 +28,8 @@ public class SpikeBrain : EnemyBrainBase {
         }
     }
 
-    private void HandleDied() {
+    protected override void HandleDied() {
+        base.HandleDied();
         _patrolMotor.enabled = false;
         _contactDamage.enabled = false;
     }

@@ -8,8 +8,6 @@ public class TriggerBase : MonoBehaviour {
 	[SerializeField] private UnityEvent<bool> OnTriggerStateChanged;
 	private bool isTriggered = false;
 
-	public event Action<bool> OnTriggered;
-
 	protected void Trigger(bool active) {
 		if ( active == isTriggered )
 			return;

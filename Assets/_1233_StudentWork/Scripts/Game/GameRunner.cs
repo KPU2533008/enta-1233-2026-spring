@@ -18,7 +18,7 @@ public class GameRunner : MonoBehaviour
         Debug.Log("GameStarter: Spawning player");
         yield return new WaitUntil(() => PlayerService.Instance.GetPlayers().Length > 0);
         Player player = PlayerService.Instance.GetPlayers()[0];
-        player.SpawnCharacter();
+        player.SpawnCharacter(Vector3.zero, Quaternion.Euler(0, -90, 0));
 
         Debug.Log("Game starting");
     }

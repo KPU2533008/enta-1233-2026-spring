@@ -438,6 +438,7 @@ MonoBehaviour:
   _stateMachine: {fileID: 0}
   _animatorDriver: {fileID: 653186838901521523}
   _health: {fileID: 5651602378888012983}
+  _collider: {fileID: 4771918469779860350}
   _weapon: {fileID: 5424250468108000370}
   _detection: {fileID: 489497579789499483}
   _rotator: {fileID: 7784375040760633189}

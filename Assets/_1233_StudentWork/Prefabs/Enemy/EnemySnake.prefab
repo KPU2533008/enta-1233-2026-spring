@@ -158,11 +158,12 @@ MonoBehaviour:
   _stateMachine: {fileID: 6032790844824397499}
   _animatorDriver: {fileID: 8867412238797472858}
   _health: {fileID: 4355389723633097886}
+  _collider: {fileID: 1630238038789762351}
   _detection: {fileID: 6696261867431822497}
   _rotator: {fileID: 3105967719535255998}
   _attackRange: 2
   _attackCooldown: 2
-  _attackDamage: 15
+  _attackDamage: 1
 --- !u!114 &6032790844824397499
 MonoBehaviour:
   m_ObjectHideFlags: 0
